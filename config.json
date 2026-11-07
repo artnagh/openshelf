@@ -1,0 +1,11 @@
+{
+  "site_name": "OpenShelf",
+  "base_url": "https://artnagh.github.io/openshelf",
+  "cname": "",
+  "github_repo": "artnagh/openshelf",
+  "adsense_client": "",
+  "exclude_repos": [
+    "asgeirtj/system_prompts_leaks"
+  ],
+  "path_prefix": "/openshelf"
+}
