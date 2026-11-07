@@ -19,7 +19,7 @@ BP = CFG.get("path_prefix", "").rstrip("/")
 def fix(txt):
     """Prefix root-relative URLs when the site is served from a subfolder (GitHub Pages project site)."""
     if not BP: return txt
-    for a in ('href="/', 'src="/', 'data-src="/', 'data-href="/', "url(/", "fetch('/", 'action="/'):
+    for a in ('href="/', 'src="/', "url(/", "fetch('/", 'action="/'):  # also covers data-href / data-src
         txt = txt.replace(a, a[:-1] + BP + "/")
     return txt.replace(f'{BP}//', '//')
 
@@ -431,10 +431,10 @@ def main():
         build_trending(lang)
         for k in KIND_DIR: build_kind_index(lang, k)
         for c in comps: build_comp(lang, c)
+        build_static(lang, "about", "about"); build_static(lang, "privacy", "privacy"); build_static(lang, "terms", "terms")
     for c in comps:
         fp = os.path.join(OUT, "content", c["id"] + ".txt"); os.makedirs(os.path.dirname(fp), exist_ok=True)
         open(fp, "w", encoding="utf-8").write(c["content"])
-        build_static(lang, "about", "about"); build_static(lang, "privacy", "privacy"); build_static(lang, "terms", "terms")
     build_extras()
     n = sum(len(f) for _, _, f in os.walk(OUT))
     print(f"built {n} files: {len(repos)} repos, {len(comps)} components x {len(LANGS)} languages -> {OUT}")
